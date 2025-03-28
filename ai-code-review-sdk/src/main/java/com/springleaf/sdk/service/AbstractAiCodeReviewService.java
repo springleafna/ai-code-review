@@ -1,6 +1,7 @@
 package com.springleaf.sdk.service;
 
 import com.springleaf.sdk.ai.AiModel;
+import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,12 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
 
     protected final GitCommand gitCommand;
     protected final AiModel aiModel;
+    protected final FeiShu feiShu;
 
-    protected AbstractAiCodeReviewService(GitCommand gitCommand, AiModel aiModel) {
+    protected AbstractAiCodeReviewService(GitCommand gitCommand, AiModel aiModel, FeiShu feiShu) {
         this.gitCommand = gitCommand;
         this.aiModel = aiModel;
+        this.feiShu = feiShu;
     }
 
 
@@ -30,7 +33,7 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
             // 3.记录评审结果到github仓库：返回github日志地址
             String logUrl = recordCodeReview(recommend);
             // 4.发送消息通知到微信公众号：日志地址、评审结果
-            pushMessage(logUrl);
+            pushMessage(feiShu.getWebhook(), logUrl);
         } catch (Exception e) {
             logger.error("ai code review error", e);
         }
@@ -42,5 +45,5 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
 
     protected abstract String recordCodeReview(String recommend) throws Exception;
 
-    protected abstract void pushMessage(String logUrl);
+    protected abstract void pushMessage(String webhook, String logUrl) throws IOException;
 }

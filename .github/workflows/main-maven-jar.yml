@@ -68,3 +68,5 @@ jobs:
           CHATGLM_APIKEY: ${{ secrets.CHATGLM_APIKEY }}
           # Ai - DeepSeek 配置
           DEEPSEEK_APIKEY: ${{ secrets.DEEPSEEK_APIKEY }}
+          # 飞书Webhook地址
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}

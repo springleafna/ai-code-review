@@ -1,6 +1,6 @@
 package com.springleaf.sdk.git;
 
-import com.springleaf.sdk.utils.RandomStringUtils;
+import com.springleaf.sdk.utils.RandomStringUtil;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
@@ -148,7 +148,7 @@ public class GitCommand {
             dateFolder.mkdirs();
         }
 
-        String fileName = project + "-" + branch + "-" + author + System.currentTimeMillis() + "-" + RandomStringUtils.randomNumeric(4) + ".md";
+        String fileName = project + "-" + branch + "-" + author + System.currentTimeMillis() + "-" + RandomStringUtil.randomNumeric(4) + ".md";
         File newFile = new File(dateFolder, fileName);
         try (FileWriter writer = new FileWriter(newFile)) {
             writer.write(recommend);

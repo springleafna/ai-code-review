@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * 传鉴权 token 进行认证
  * 这里是生成 token 的工具类
  */
-public class BearerTokenUtils {
+public class BearerTokenUtil {
 
     // 过期时间；默认30分钟
     private static final long expireMillis = 30 * 60 * 1000L;

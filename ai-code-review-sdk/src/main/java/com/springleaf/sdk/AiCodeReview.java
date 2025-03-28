@@ -3,6 +3,7 @@ package com.springleaf.sdk;
 import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.ai.DeepSeek;
 import com.springleaf.sdk.enumeration.AiModelEnum;
+import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
 import com.springleaf.sdk.service.AiCodeReviewService;
 import com.springleaf.sdk.service.impl.AiCodeReviewServiceImpl;
@@ -28,7 +29,11 @@ public class AiCodeReview {
                 getEnv("DEEPSEEK_APIKEY")
         );
 
-        AiCodeReviewService aiCodeReviewService = new AiCodeReviewServiceImpl(gitCommand, aiModel);
+        FeiShu feiShu = new FeiShu(
+                getEnv("FEISHU_WEBHOOK")
+        );
+
+        AiCodeReviewService aiCodeReviewService = new AiCodeReviewServiceImpl(gitCommand, aiModel, feiShu);
         aiCodeReviewService.exec();
 
         logger.info("Code review completed successfully!");

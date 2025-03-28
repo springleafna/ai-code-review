@@ -4,9 +4,11 @@ import com.springleaf.sdk.ai.ChatGML;
 import com.springleaf.sdk.ai.DeepSeek;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
+import com.springleaf.sdk.domain.dto.FeiShuTemplateMessageDTO;
 import com.springleaf.sdk.enumeration.AiModelEnum;
+import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
-import com.springleaf.sdk.utils.BearerTokenUtils;
+import com.springleaf.sdk.utils.GenSignUtil;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -17,6 +19,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +87,60 @@ public class ApiTest {
         AiModel aiModel = new DeepSeek(apiHost, apiKey);
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
+    }
+
+
+    /**
+     * 测试使用飞书webhook方式通知评审消息
+     */
+    @Test
+    public void testFeiShuWebhook() throws MalformedURLException, IOException, NoSuchAlgorithmException, InvalidKeyException {
+        URL url = new URL("https://open.feishu.cn/open-apis/bot/v2/hook/asdfasfdfas8f715fbbb");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json; utf-8");
+        conn.setDoOutput(true);
+
+        FeiShuTemplateMessageDTO feiShuTemplateMessageDTO = new FeiShuTemplateMessageDTO(
+                "text",
+                new FeiShuTemplateMessageDTO.Content(
+                        "测试飞书webhook！"
+                ));
+
+        try (OutputStream os = conn.getOutputStream()) {
+            os.write(JSON.toJSONString(feiShuTemplateMessageDTO).getBytes(StandardCharsets.UTF_8));
+            os.flush();
+        }
+
+        int responseCode = conn.getResponseCode();
+        if (responseCode != 200) {
+            System.out.println("POST request not successful");
+        } else {
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            System.out.println(response);
+        }
+    }
+
+    @Test
+    public void test() throws NoSuchAlgorithmException, InvalidKeyException {
+        FeiShuTemplateMessageDTO feiShuTemplateMessageDTO = new FeiShuTemplateMessageDTO(
+                "text",
+                new FeiShuTemplateMessageDTO.Content(
+                        "新消息！"
+                ));
+        System.out.println(JSON.toJSONString(feiShuTemplateMessageDTO));
+    }
+
+    @Test
+    public void testFeishu() throws IOException {
+        FeiShu feiShu = new FeiShu("https://open.feishu.cn/open-apis/bot/v2/hook/d28b081e-7a18-4b22-9d0c-1ea8f715fbbb");
+        feiShu.sendTemplateMessage(feiShu.getWebhook(), "https://www.baidu.com");
     }
 
 }

@@ -3,7 +3,7 @@ package com.springleaf.sdk.ai;
 import com.alibaba.fastjson2.JSON;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
-import com.springleaf.sdk.utils.BearerTokenUtils;
+import com.springleaf.sdk.utils.BearerTokenUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,7 +25,7 @@ public class ChatGML implements AiModel {
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {
         // 根据APIKEY获取token
-        String token = BearerTokenUtils.getToken(apiKey);
+        String token = BearerTokenUtil.getToken(apiKey);
 
         URL url = new URL(apiURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

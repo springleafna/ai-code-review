@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * 生成随机字符串工具类
  */
-public class RandomStringUtils {
+public class RandomStringUtil {
 
     public static String randomNumeric(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

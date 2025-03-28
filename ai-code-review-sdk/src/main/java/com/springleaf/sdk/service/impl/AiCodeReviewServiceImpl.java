@@ -4,6 +4,7 @@ import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
 import com.springleaf.sdk.enumeration.AiModelEnum;
+import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
 import com.springleaf.sdk.service.AbstractAiCodeReviewService;
 
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 
 public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
 
-    public AiCodeReviewServiceImpl(GitCommand gitCommand, AiModel aiModel) {
-        super(gitCommand, aiModel);
+    public AiCodeReviewServiceImpl(GitCommand gitCommand, AiModel aiModel, FeiShu feiShu) {
+        super(gitCommand, aiModel, feiShu);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
     }
 
     @Override
-    protected void pushMessage(String logUrl) {
-        System.out.println("Code review result: " + logUrl);
+    protected void pushMessage(String webhook, String logUrl) throws IOException {
+        feiShu.sendTemplateMessage(webhook, logUrl);
     }
 }
