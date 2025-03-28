@@ -40,3 +40,47 @@ HTTP 用户鉴权
 - api_key : 属性表示用户标识 id，即用户API Key的{id}部分  
 - exp : 属性表示生成的JWT的过期时间，客户端控制，单位为毫秒  
 - timestamp : 属性表示当前时间戳，单位为毫秒  
+
+## 使用 HttpURLConnection 发送 POST 请求
+在 Java 编程中，HttpURLConnection 类是一个用于发送 HTTP 请求的工具。当需要通过 POST 方法发送 JSON 数据时，可以按照以下步骤进行：
+### 创建 URL 对象
+首先，创建一个 URL 对象，指向接受 JSON 数据的目标 URI。例如：  
+``URL url = new URL("https://reqres.in/api/users");``  
+### 打开连接
+使用 URL 对象的 openConnection 方法来获取 HttpURLConnection 对象。由于 HttpURLConnection 是一个抽象类，因此不能直接实例化：  
+``HttpURLConnection con = (HttpURLConnection) url.openConnection();``  `
+### 设置请求方法
+为了发送 POST 请求，需要将请求方法设置为 POST：
+``con.setRequestMethod("POST");``  
+### 设置请求头参数
+设置请求头中的 "Content-Type" 为 "application/json"，这样可以将请求内容以 JSON 形式发送。如果不这样做，服务器可能会返回 HTTP 状态码 "400-bad request"：
+``con.setRequestProperty("Content-Type", "application/json");``  
+### 设置响应格式
+设置请求头中的 "Accept" 为 "application/json"，以便以所需格式读取响应：  
+``con.setRequestProperty("Accept", "application/json");``  
+### 启用输出
+为了发送请求内容，需要将 URLConnection 对象的 doOutput 属性设置为 true。否则，将无法将内容写入连接的输出流：  
+``con.setDoOutput(true);``  
+### 创建请求体
+创建一个自定义的 JSON 字符串，然后将其写入输出流：  
+```
+String jsonInputString = "{\"name\": \"Upendra\", \"job\": \"Programmer\"}";
+try (OutputStream os = con.getOutputStream()) {
+    byte[] input = jsonInputString.getBytes("utf-8");
+    os.write(input, 0, input.length);
+}
+```
+### 读取响应
+从输入流中获取数据以读取响应内容。记得使用 try-with-resources 自动关闭响应流。读取整个响应内容，并打印最终的响应字符串：  
+```
+try (BufferedReader br = new BufferedReader(
+    new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        StringBuilder response = new StringBuilder();
+        String responseLine = null;
+    while ((responseLine = br.readLine()) != null) {
+        response.append(responseLine.trim());
+    }
+System.out.println(response.toString());
+}
+```
+如果响应是 JSON 格式的，可以使用第三方 JSON 解析器，如 Jackson 库、Gson 或 org.json 来解析响应。

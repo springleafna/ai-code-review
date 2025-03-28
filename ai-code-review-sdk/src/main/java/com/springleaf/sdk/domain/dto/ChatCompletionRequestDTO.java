@@ -1,16 +1,53 @@
 package com.springleaf.sdk.domain.dto;
 
-import com.springleaf.sdk.domain.entity.Prompt;
-
 import java.util.List;
 
 /**
- * 聊天完成请求 DTO
+ * 智谱Ai发起请求的json格式
+ * --data '{
+ *     "model": "glm-4",
+ *     "messages": [
+ *         {
+ *             "role": "user",
+ *             "content": "你好"
+ *         }
+ *     ]
+ * }'
  */
 public class ChatCompletionRequestDTO {
 
     private String model;
     private List<Prompt> messages;
+
+    public static class Prompt {
+        private String role;
+        private String content;
+
+        public Prompt() {
+        }
+
+        public Prompt(String role, String content) {
+            this.role = role;
+            this.content = content;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+    }
 
     public String getModel() {
         return model;

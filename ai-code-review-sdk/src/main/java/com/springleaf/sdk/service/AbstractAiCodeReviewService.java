@@ -1,11 +1,24 @@
 package com.springleaf.sdk.service;
 
+import com.springleaf.sdk.ai.AiModel;
+import com.springleaf.sdk.git.GitCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public abstract class AbstractAiCodeReviewService implements AiCodeReviewService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
+
+    protected final GitCommand gitCommand;
+    protected final AiModel aiModel;
+
+    protected AbstractAiCodeReviewService(GitCommand gitCommand, AiModel aiModel) {
+        this.gitCommand = gitCommand;
+        this.aiModel = aiModel;
+    }
+
 
     @Override
     public void exec() {
@@ -23,11 +36,11 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
         }
     }
 
-    protected abstract String getDiffCode();
+    protected abstract String getDiffCode() throws IOException, InterruptedException;
 
-    protected abstract String codeReview(String diffCode);
+    protected abstract String codeReview(String diffCode) throws Exception;
 
-    protected abstract String recordCodeReview(String recommend);
+    protected abstract String recordCodeReview(String recommend) throws Exception;
 
     protected abstract void pushMessage(String logUrl);
 }

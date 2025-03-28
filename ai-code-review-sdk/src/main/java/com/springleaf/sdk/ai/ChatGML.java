@@ -24,6 +24,7 @@ public class ChatGML implements AiModel {
 
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {
+        // 根据APIKEY获取token
         String token = BearerTokenUtils.getToken(apiKeySecret);
 
         URL url = new URL(apiHost);
@@ -34,11 +35,13 @@ public class ChatGML implements AiModel {
         connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         connection.setDoOutput(true);
 
+        // 创建请求体，将json数据写入请求体
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(requestDTO).getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
+        // 读取响应结果
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuilder content = new StringBuilder();
@@ -46,6 +49,7 @@ public class ChatGML implements AiModel {
             content.append(inputLine);
         }
 
+        // 关闭连接
         in.close();
         connection.disconnect();
 
