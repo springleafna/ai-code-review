@@ -75,7 +75,7 @@ public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
     }
 
     @Override
-    protected void pushMessage(String webhook, String logUrl) throws IOException {
-        feiShu.sendTemplateMessage(webhook, logUrl);
+    protected void pushMessage(String logUrl) throws IOException {
+        feiShu.sendTemplateMessage(logUrl);
     }
 }

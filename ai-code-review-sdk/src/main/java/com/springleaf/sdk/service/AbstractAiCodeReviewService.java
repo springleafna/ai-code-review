@@ -33,7 +33,7 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
             // 3.记录评审结果到github仓库：返回github日志地址
             String logUrl = recordCodeReview(recommend);
             // 4.发送消息通知到微信公众号：日志地址、评审结果
-            pushMessage(feiShu.getWebhook(), logUrl);
+            pushMessage(logUrl);
         } catch (Exception e) {
             logger.error("ai code review error", e);
         }
@@ -45,5 +45,5 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
 
     protected abstract String recordCodeReview(String recommend) throws Exception;
 
-    protected abstract void pushMessage(String webhook, String logUrl) throws IOException;
+    protected abstract void pushMessage(String logUrl) throws IOException;
 }
