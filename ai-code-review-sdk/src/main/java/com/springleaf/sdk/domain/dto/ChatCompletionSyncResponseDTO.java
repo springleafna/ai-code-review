@@ -3,7 +3,7 @@ package com.springleaf.sdk.domain.dto;
 import java.util.List;
 
 /**
- * 智谱Ai返回的json格式
+ * 调用Ai返回的json格式
  * "choices": [
  *       {
  *           "message": {

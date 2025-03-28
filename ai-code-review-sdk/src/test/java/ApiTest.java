@@ -1,6 +1,7 @@
 import com.alibaba.fastjson2.JSON;
 import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.ai.ChatGML;
+import com.springleaf.sdk.ai.DeepSeek;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
 import com.springleaf.sdk.enumeration.AiModelEnum;
@@ -59,6 +60,26 @@ public class ApiTest {
         chatCompletionRequestDTO.setMessages(messages);
 
         AiModel aiModel = new ChatGML(apiHost, apiKey);
+        ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
+        System.out.println(JSON.toJSONString(completions));
+    }
+
+    /**
+     * 测试发起http请求与DeepSeekAi对话
+     */
+    @Test
+    public void testChatWithDeepSeek() throws Exception {
+
+        String apiHost = "https://api.deepseek.com/chat/completions";
+        String apiKey = "sk-01db804e3b324d02fsdeaab9b126";
+
+        ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
+        chatCompletionRequestDTO.setModel(AiModelEnum.DEEPSEEK_CHAT.getCode());
+        List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
+        messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
+        chatCompletionRequestDTO.setMessages(messages);
+
+        AiModel aiModel = new DeepSeek(apiHost, apiKey);
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
     }

@@ -15,21 +15,20 @@ import java.nio.charset.StandardCharsets;
 public class DeepSeek implements AiModel {
 
     private final String apiHost;
-    private final String apiKeySecret;
+    private final String apiKey;
 
-    public DeepSeek(String apiHost, String apiKeySecret) {
+    public DeepSeek(String apiHost, String apiKey) {
         this.apiHost = apiHost;
-        this.apiKeySecret = apiKeySecret;
+        this.apiKey = apiKey;
     }
 
     @Override
-    public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {
-        String token = BearerTokenUtils.getToken(apiKeySecret);
+    public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {;
 
         URL url = new URL(apiHost);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Authorization", "Bearer " + token);
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         connection.setDoOutput(true);

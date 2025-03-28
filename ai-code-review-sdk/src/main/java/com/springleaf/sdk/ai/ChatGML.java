@@ -15,17 +15,17 @@ import java.nio.charset.StandardCharsets;
 public class ChatGML implements AiModel {
 
     private final String apiHost;
-    private final String apiKeySecret;
+    private final String apiKey;
 
-    public ChatGML(String apiHost, String apiKeySecret) {
+    public ChatGML(String apiHost, String apiKey) {
         this.apiHost = apiHost;
-        this.apiKeySecret = apiKeySecret;
+        this.apiKey = apiKey;
     }
 
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {
         // 根据APIKEY获取token
-        String token = BearerTokenUtils.getToken(apiKeySecret);
+        String token = BearerTokenUtils.getToken(apiKey);
 
         URL url = new URL(apiHost);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

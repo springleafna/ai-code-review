@@ -3,7 +3,7 @@ package com.springleaf.sdk.domain.dto;
 import java.util.List;
 
 /**
- * 智谱Ai发起请求的json格式
+ * 发起ai调用请求的json格式
  * --data '{
  *     "model": "glm-4",
  *     "messages": [
