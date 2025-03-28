@@ -3,7 +3,6 @@ package com.springleaf.sdk.ai;
 import com.alibaba.fastjson2.JSON;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
-import com.springleaf.sdk.utils.BearerTokenUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,18 +13,18 @@ import java.nio.charset.StandardCharsets;
 
 public class DeepSeek implements AiModel {
 
-    private final String apiHost;
+    private final String apiURL;
     private final String apiKey;
 
-    public DeepSeek(String apiHost, String apiKey) {
-        this.apiHost = apiHost;
+    public DeepSeek(String apiURL, String apiKey) {
+        this.apiURL = apiURL;
         this.apiKey = apiKey;
     }
 
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {;
 
-        URL url = new URL(apiHost);
+        URL url = new URL(apiURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Authorization", "Bearer " + apiKey);

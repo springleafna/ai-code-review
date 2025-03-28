@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
 
-    protected AiCodeReviewServiceImpl(GitCommand gitCommand, AiModel aiModel) {
+    public AiCodeReviewServiceImpl(GitCommand gitCommand, AiModel aiModel) {
         super(gitCommand, aiModel);
     }
 

@@ -19,7 +19,7 @@ public class GitCommand {
     private final Logger logger = LoggerFactory.getLogger(GitCommand.class);
 
     /**
-     * github仓库地址
+     * github评审日志仓库地址
      */
     private final String githubReviewLogUri;
 

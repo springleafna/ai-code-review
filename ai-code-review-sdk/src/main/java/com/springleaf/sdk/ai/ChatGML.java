@@ -14,11 +14,11 @@ import java.nio.charset.StandardCharsets;
 
 public class ChatGML implements AiModel {
 
-    private final String apiHost;
+    private final String apiURL;
     private final String apiKey;
 
-    public ChatGML(String apiHost, String apiKey) {
-        this.apiHost = apiHost;
+    public ChatGML(String apiURL, String apiKey) {
+        this.apiURL = apiURL;
         this.apiKey = apiKey;
     }
 
@@ -27,7 +27,7 @@ public class ChatGML implements AiModel {
         // 根据APIKEY获取token
         String token = BearerTokenUtils.getToken(apiKey);
 
-        URL url = new URL(apiHost);
+        URL url = new URL(apiURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Authorization", "Bearer " + token);

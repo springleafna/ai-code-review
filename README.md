@@ -1,4 +1,5 @@
-ProcessBuilder 是 Java 中用于启动和管理外部进程的类。
+## ProcessBuilder
+是 Java 中用于启动和管理外部进程的类。
 ProcessBuilder类是J2SE 1.5在java.lang中新添加的一个新类，此类用于创建操作系统进程，它提供一种启动和管理进程（也就是应用程序）的方法。  
 在J2SE 1.5之前，都是由Process类处来实现进程的控制管理。每个 ProcessBuilder 实例管理一个进程属性集。  
 它的start() 方法利用这些属性创建一个新的 Process 实例。start() 方法可以从同一实例重复调用，以利用相同的或相关的属性创建新的子进程。  
