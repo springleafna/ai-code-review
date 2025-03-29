@@ -1,3 +1,87 @@
+# jar包使用说明
+1. 在项目工程下添加GitHub Actions，并配置相关的工作流:  
+xxxProject/.github/workflows/xxx.yml:  
+```yml
+name: Build and Run AiCodeReview By Main Maven Jar
+
+# 当代码被推送到master分支，或者有拉取请求指向master分支时，工作流会被触发。
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Create libs directory
+        run: mkdir -p ./libs
+
+      - name: Download openai-code-review-sdk JAR
+        run: wget -O ./libs/ai-code-review-sdk-1.0.jar https://github.com/springleafna/ai-code-review/releases/download/v1.0/ai-code-review-sdk-1.0.jar
+
+      - name: Get repository name
+        id: repo-name
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+
+      - name: Get branch name
+        id: branch-name
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+      - name: Get commit author
+        id: commit-author
+        run: echo "COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an <%ae>')" >> $GITHUB_ENV
+
+      - name: Get commit message
+        id: commit-message
+        run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
+
+      - name: Print repository, branch name, commit author, and commit message
+        run: |
+          echo "Repository name is ${{ env.REPO_NAME }}"
+          echo "Branch name is ${{ env.BRANCH_NAME }}"
+          echo "Commit author is ${{ env.COMMIT_AUTHOR }}"
+          echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
+
+      - name: Run Code Review
+        run: java -jar ./libs/ai-code-review-sdk-1.0.jar
+        env:
+          # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xfg-studio-project/openai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
+          GITHUB_REVIEW_LOG_URI: ${{ secrets.CODE_REVIEW_LOG_URI }}
+          GITHUB_TOKEN: ${{ secrets.CODE_TOKEN }}
+          COMMIT_PROJECT: ${{ env.REPO_NAME }}
+          COMMIT_BRANCH: ${{ env.BRANCH_NAME }}
+          COMMIT_AUTHOR: ${{ env.COMMIT_AUTHOR }}
+          COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
+          # Ai - ChatGLM 配置「https://open.bigmodel.cn/api/paas/v4/chat/completions」、「https://open.bigmodel.cn/usercenter/apikeys」
+          CHATGLM_APIKEY: ${{ secrets.CHATGLM_APIKEY }}
+          # Ai - DeepSeek 配置
+          DEEPSEEK_APIKEY: ${{ secrets.DEEPSEEK_APIKEY }}
+          # 飞书Webhook地址
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+```
+2. 在GitHub项目工程仓库里添加GitHub Secrets，并配置相关的密钥:  
+- CODE_REVIEW_LOG_URI: 代码审查日志存储仓库地址，如：https://github.com/xxx/ai-code-review-log
+- CODE_TOKEN: GitHub Token，用于鉴权
+- DEEPSEEK_APIKEY: DeepSeek API Key，用于调用DeepSeek接口进行代码评审。
+- FEISHU_WEBHOOK: 飞书机器人 Webhook，用于飞书机器人消息推送。
+
+
 ## ProcessBuilder
 是 Java 中用于启动和管理外部进程的类。
 ProcessBuilder类是J2SE 1.5在java.lang中新添加的一个新类，此类用于创建操作系统进程，它提供一种启动和管理进程（也就是应用程序）的方法。  
