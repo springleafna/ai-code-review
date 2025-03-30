@@ -5,5 +5,4 @@ import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
 
 public interface AiModel {
     ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception;
-
 }

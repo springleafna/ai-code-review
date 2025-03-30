@@ -4,10 +4,10 @@ name: Build and Run AiCodeReview By Main Maven Jar
 on:
   push:
     branches:
-      - master-close
+      - master
   pull_request:
     branches:
-      - master-close
+      - master
 
 jobs:
   build:
@@ -66,6 +66,7 @@ jobs:
           COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
           # Ai - ChatGLM 配置「https://open.bigmodel.cn/api/paas/v4/chat/completions」、「https://open.bigmodel.cn/usercenter/apikeys」
           CHATGLM_APIKEY: ${{ secrets.CHATGLM_APIKEY }}
+          deepseek-reasoner: ${{ secrets.CHATGLM_APIKEY }}
           # Ai - DeepSeek 配置
           DEEPSEEK_APIKEY: ${{ secrets.DEEPSEEK_APIKEY }}
           # 飞书Webhook地址

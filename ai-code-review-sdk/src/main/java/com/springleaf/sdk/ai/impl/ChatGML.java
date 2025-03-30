@@ -1,6 +1,7 @@
-package com.springleaf.sdk.ai;
+package com.springleaf.sdk.ai.impl;
 
 import com.alibaba.fastjson2.JSON;
+import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
 import com.springleaf.sdk.utils.BearerTokenUtil;
