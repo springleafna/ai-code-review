@@ -56,7 +56,7 @@ public class ApiTest {
     public void testChatWithZhiPu() throws Exception {
 
         String apiHost = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-        String apiKey = "623611sadf3dff992c38b461e37cf26d.5jLZ2ByQLzSZHmZx";
+        String apiKey = "623611edfa3dfadfasc38b461e37cf26d.5jLZ2ByQLzSZHmZx";
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
         chatCompletionRequestDTO.setModel(AiModelEnum.GLM_4.getCode());
