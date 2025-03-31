@@ -68,6 +68,6 @@ jobs:
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           # Ai api配置
           # deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}
-          deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
-          # glm-4: ${{ secrets.CHATGLM_APIKEY }}
-          # glm-4v: ${{ secrets.CHATGLM_APIKEY }}
+          # deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
+          glm-4: ${{ secrets.CHATGLM_APIKEY }}
+          glm-4v: ${{ secrets.CHATGLM_APIKEY }}
