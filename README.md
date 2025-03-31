@@ -33,7 +33,7 @@ jobs:
         run: mkdir -p ./libs
 
       - name: Download openai-code-review-sdk JAR
-        run: wget -O ./libs/ai-code-review-sdk-1.0.jar https://github.com/springleafna/ai-code-review/releases/download/v1.0/ai-code-review-sdk-1.0.jar
+        run: wget -O ./libs/ai-code-review-sdk-1.2.jar https://github.com/springleafna/ai-code-review/releases/download/v1.2/ai-code-review-sdk-1.2.jar
 
       - name: Get repository name
         id: repo-name
@@ -59,7 +59,7 @@ jobs:
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
 
       - name: Run Code Review
-        run: java -jar ./libs/ai-code-review-sdk-1.0.jar
+        run: java -jar ./libs/ai-code-review-sdk-1.2.jar
         env:
           # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xfg-studio-project/openai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
           GITHUB_REVIEW_LOG_URI: ${{ secrets.CODE_REVIEW_LOG_URI }}
@@ -87,12 +87,23 @@ jobs:
   - glm-4：GLM-4 聊天模型
   - glm-4v：GLM-4v 聊天模型  
 
-在yml文件中，配置对应的密钥，如：  
-    deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}  
-    deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}  
-    glm-4: ${{ secrets.CHATGLM_APIKEY }}  
-    glm-4v: ${{ secrets.CHATGLM_APIKEY }}  
-若配置多个Ai模型，默认按照上述顺序进行调用。  
+    在yml文件中，配置对应的密钥，如：  
+        deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}  
+        deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}  
+        glm-4: ${{ secrets.CHATGLM_APIKEY }}  
+        glm-4v: ${{ secrets.CHATGLM_APIKEY }}  
+    若配置多个Ai模型，默认按照上述顺序进行调用。  
+3. 关闭代码评审功能：  
+添加 -close 即可
+ ```yml
+on:
+  push:
+    branches:
+      - master-close
+  pull_request:
+    branches:
+      - master-close
+```
 
 ## ProcessBuilder
 是 Java 中用于启动和管理外部进程的类。
