@@ -75,16 +75,14 @@ public class ApiTest {
     @Test
     public void testChatWithDeepSeek() throws Exception {
 
-        String apiHost = "https://api.deepseek.com/chat/completions";
-        String apiKey = "sk-01db804e3b324d02fsdeaab9b126";
+        AiModel aiModel = AiModelEnum.DEEPSEEK_REASONER.createInstanceModel("sk-01db804e3b324d02ba7a34beaab9b126");
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
-        chatCompletionRequestDTO.setModel(AiModelEnum.DEEPSEEK_CHAT.getCode());
+        chatCompletionRequestDTO.setModel(aiModel.getModel());
         List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
         messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
         chatCompletionRequestDTO.setMessages(messages);
 
-        AiModel aiModel = new DeepSeek(apiHost, apiKey, AiModelEnum.DEEPSEEK_CHAT.getCode());
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
     }

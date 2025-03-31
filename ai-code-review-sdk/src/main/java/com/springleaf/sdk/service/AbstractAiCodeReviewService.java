@@ -12,9 +12,9 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected final GitCommand gitCommand;
-    protected final AiModel aiModel;
-    protected final FeiShu feiShu;
+    protected GitCommand gitCommand;
+    protected AiModel aiModel;
+    protected FeiShu feiShu;
 
     protected AbstractAiCodeReviewService(GitCommand gitCommand, AiModel aiModel, FeiShu feiShu) {
         this.gitCommand = gitCommand;
