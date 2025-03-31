@@ -49,11 +49,11 @@ public enum AiModelEnum {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public String getInfo() {
-        return info;
+        return this.info;
     }
 
     public String getApiURL() {
