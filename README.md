@@ -68,19 +68,31 @@ jobs:
           COMMIT_BRANCH: ${{ env.BRANCH_NAME }}
           COMMIT_AUTHOR: ${{ env.COMMIT_AUTHOR }}
           COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
-          # Ai - ChatGLM 配置「https://open.bigmodel.cn/api/paas/v4/chat/completions」、「https://open.bigmodel.cn/usercenter/apikeys」
-          CHATGLM_APIKEY: ${{ secrets.CHATGLM_APIKEY }}
-          # Ai - DeepSeek 配置
-          DEEPSEEK_APIKEY: ${{ secrets.DEEPSEEK_APIKEY }}
           # 飞书Webhook地址
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          # Ai api配置
+          deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}
+          deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
+          glm-4: ${{ secrets.CHATGLM_APIKEY }}
+          glm-4v: ${{ secrets.CHATGLM_APIKEY }}
 ```
 2. 在GitHub项目工程仓库里添加GitHub Secrets，并配置相关的密钥:  
 - CODE_REVIEW_LOG_URI: 代码审查日志存储仓库地址，如：https://github.com/xxx/ai-code-review-log
 - CODE_TOKEN: GitHub Token，用于鉴权
-- DEEPSEEK_APIKEY: DeepSeek API Key，用于调用DeepSeek接口进行代码评审。
 - FEISHU_WEBHOOK: 飞书机器人 Webhook，用于飞书机器人消息推送。
+- 对于Ai模型的配置：  
+现支持以下模型：
+  - deepseek-chat：DeepSeek-V3模型
+  - deepseek-reasoner：DeepSeek-R1模型
+  - glm-4：GLM-4 聊天模型
+  - glm-4v：GLM-4v 聊天模型  
 
+在yml文件中，配置对应的密钥，如：  
+    deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}  
+    deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}  
+    glm-4: ${{ secrets.CHATGLM_APIKEY }}  
+    glm-4v: ${{ secrets.CHATGLM_APIKEY }}  
+若配置多个Ai模型，默认按照上述顺序进行调用。  
 
 ## ProcessBuilder
 是 Java 中用于启动和管理外部进程的类。
