@@ -1,7 +1,6 @@
 package com.springleaf.sdk;
 
 import com.springleaf.sdk.ai.AiModel;
-import com.springleaf.sdk.ai.impl.DeepSeek;
 import com.springleaf.sdk.enumeration.AiModelEnum;
 import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
