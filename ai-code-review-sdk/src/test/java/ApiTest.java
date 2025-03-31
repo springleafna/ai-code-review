@@ -55,7 +55,7 @@ public class ApiTest {
     @Test
     public void testChatWithZhiPu() throws Exception {
 
-        AiModel aiModel = AiModelEnum.GLM_4.createInstanceModel("623611edfa3dff992c38b461e37cf26d.5jLZ2ByQLzSZHmZx");
+        AiModel aiModel = AiModelEnum.GLM_4.createInstanceModel("623611edffddsff992c38b461e37cf26d.5jLZ2ByQLzSZHmZx");
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
         List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ApiTest {
     @Test
     public void testChatWithDeepSeek() throws Exception {
 
-        AiModel aiModel = AiModelEnum.DEEPSEEK_CHAT.createInstanceModel("sk-01db804e3b324d02ba7a34beaab9b126");
+        AiModel aiModel = AiModelEnum.DEEPSEEK_CHAT.createInstanceModel("sk-01db80dfsf4d02ba7a34beaab9b126");
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
         List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
