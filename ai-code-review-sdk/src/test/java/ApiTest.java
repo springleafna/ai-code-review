@@ -55,16 +55,13 @@ public class ApiTest {
     @Test
     public void testChatWithZhiPu() throws Exception {
 
-        String apiHost = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-        String apiKey = "623611edfa3dfadfasc38b461e37cf26d.5jLZ2ByQLzSZHmZx";
+        AiModel aiModel = AiModelEnum.GLM_4.createInstanceModel("623611edfa3dff992c38b461e37cf26d.5jLZ2ByQLzSZHmZx");
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
-        chatCompletionRequestDTO.setModel(AiModelEnum.GLM_4.getCode());
         List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
         messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
         chatCompletionRequestDTO.setMessages(messages);
 
-        AiModel aiModel = new ChatGML(apiHost, apiKey, AiModelEnum.GLM_4.getCode());
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
     }
