@@ -28,6 +28,8 @@ public class DeepSeek implements AiModel {
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {;
 
+        requestDTO.setModel(this.model);
+
         URL url = new URL(apiURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -53,10 +55,4 @@ public class DeepSeek implements AiModel {
 
         return JSON.parseObject(content.toString(), ChatCompletionSyncResponseDTO.class);
     }
-
-    @Override
-    public String getModel() {
-        return this.model;
-    }
-
 }

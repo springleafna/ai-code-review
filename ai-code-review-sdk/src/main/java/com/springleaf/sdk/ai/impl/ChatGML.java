@@ -27,6 +27,9 @@ public class ChatGML implements AiModel {
 
     @Override
     public ChatCompletionSyncResponseDTO completions(ChatCompletionRequestDTO requestDTO) throws Exception {
+
+        requestDTO.setModel(this.model);
+
         // 根据APIKEY获取token
         String token = BearerTokenUtil.getToken(apiKey);
 
@@ -57,10 +60,5 @@ public class ChatGML implements AiModel {
         connection.disconnect();
 
         return JSON.parseObject(content.toString(), ChatCompletionSyncResponseDTO.class);
-    }
-
-    @Override
-    public String getModel() {
-        return this.model;
     }
 }

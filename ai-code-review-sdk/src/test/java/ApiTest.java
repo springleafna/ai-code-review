@@ -75,10 +75,9 @@ public class ApiTest {
     @Test
     public void testChatWithDeepSeek() throws Exception {
 
-        AiModel aiModel = AiModelEnum.DEEPSEEK_REASONER.createInstanceModel("sk-01db804e3b324d02ba7a34beaab9b126");
+        AiModel aiModel = AiModelEnum.DEEPSEEK_CHAT.createInstanceModel("sk-01db804e3b324d02ba7a34beaab9b126");
 
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
-        chatCompletionRequestDTO.setModel(aiModel.getModel());
         List<ChatCompletionRequestDTO.Prompt> messages = new ArrayList<>();
         messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
         chatCompletionRequestDTO.setMessages(messages);
