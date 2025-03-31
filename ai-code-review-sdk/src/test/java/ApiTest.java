@@ -64,7 +64,7 @@ public class ApiTest {
         messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
         chatCompletionRequestDTO.setMessages(messages);
 
-        AiModel aiModel = new ChatGML(apiHost, apiKey);
+        AiModel aiModel = new ChatGML(apiHost, apiKey, AiModelEnum.GLM_4.getCode());
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
     }
@@ -84,7 +84,7 @@ public class ApiTest {
         messages.add(new ChatCompletionRequestDTO.Prompt("user", "你好，你是谁？"));
         chatCompletionRequestDTO.setMessages(messages);
 
-        AiModel aiModel = new DeepSeek(apiHost, apiKey);
+        AiModel aiModel = new DeepSeek(apiHost, apiKey, AiModelEnum.DEEPSEEK_CHAT.getCode());
         ChatCompletionSyncResponseDTO completions = aiModel.completions(chatCompletionRequestDTO);
         System.out.println(JSON.toJSONString(completions));
     }

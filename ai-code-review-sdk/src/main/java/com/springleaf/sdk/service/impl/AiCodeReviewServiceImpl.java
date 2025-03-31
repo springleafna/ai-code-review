@@ -25,7 +25,7 @@ public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
     @Override
     protected String codeReview(String diffCode) throws Exception {
         ChatCompletionRequestDTO chatCompletionRequestDTO = new ChatCompletionRequestDTO();
-        chatCompletionRequestDTO.setModel(AiModelEnum.DEEPSEEK_CHAT.getCode());
+        chatCompletionRequestDTO.setModel(aiModel.getModel());
         chatCompletionRequestDTO.setMessages(
             new ArrayList<ChatCompletionRequestDTO.Prompt>() {
                 private static final long serialVersionUID = -7988151926241837899L;

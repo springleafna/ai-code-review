@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
+import com.springleaf.sdk.enumeration.AiModelEnum;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,10 +17,12 @@ public class DeepSeek implements AiModel {
 
     private final String apiURL;
     private final String apiKey;
+    private final String model;
 
-    public DeepSeek(String apiURL, String apiKey) {
+    public DeepSeek(String apiURL, String apiKey, String model) {
         this.apiURL = apiURL;
         this.apiKey = apiKey;
+        this.model = model;
     }
 
     @Override
@@ -50,4 +53,10 @@ public class DeepSeek implements AiModel {
 
         return JSON.parseObject(content.toString(), ChatCompletionSyncResponseDTO.class);
     }
+
+    @Override
+    public String getModel() {
+        return this.model;
+    }
+
 }

@@ -17,10 +17,12 @@ public class ChatGML implements AiModel {
 
     private final String apiURL;
     private final String apiKey;
+    private final String model;
 
-    public ChatGML(String apiURL, String apiKey) {
+    public ChatGML(String apiURL, String apiKey, String model) {
         this.apiURL = apiURL;
         this.apiKey = apiKey;
+        this.model = model;
     }
 
     @Override
@@ -55,5 +57,10 @@ public class ChatGML implements AiModel {
         connection.disconnect();
 
         return JSON.parseObject(content.toString(), ChatCompletionSyncResponseDTO.class);
+    }
+
+    @Override
+    public String getModel() {
+        return this.model;
     }
 }
