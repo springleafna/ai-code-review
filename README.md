@@ -33,7 +33,7 @@ jobs:
         run: mkdir -p ./libs
 
       - name: Download openai-code-review-sdk JAR
-        run: wget -O ./libs/ai-code-review-sdk-1.2.jar https://github.com/springleafna/ai-code-review/releases/download/v1.2/ai-code-review-sdk-1.2.jar
+        run: wget -O ./libs/ai-code-review-sdk-2.0.jar https://github.com/springleafna/ai-code-review/releases/download/v2.0/ai-code-review-sdk-2.0.jar
 
       - name: Get repository name
         id: repo-name
@@ -59,7 +59,7 @@ jobs:
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
 
       - name: Run Code Review
-        run: java -jar ./libs/ai-code-review-sdk-1.2.jar
+        run: java -jar ./libs/ai-code-review-sdk-2.0.jar
         env:
           # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xfg-studio-project/openai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
           GITHUB_REVIEW_LOG_URI: ${{ secrets.CODE_REVIEW_LOG_URI }}
