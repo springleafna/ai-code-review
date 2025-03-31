@@ -4,10 +4,10 @@ name: Build and Run AiCodeReview By Main Maven Jar
 on:
   push:
     branches:
-      - master-close
+      - master
   pull_request:
     branches:
-      - master-close
+      - master
 
 jobs:
   build:
@@ -67,7 +67,7 @@ jobs:
           # 飞书Webhook地址
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           # Ai api配置
-          deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}
-          deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
+          # deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}
+          # deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
           glm-4: ${{ secrets.CHATGLM_APIKEY }}
           glm-4v: ${{ secrets.CHATGLM_APIKEY }}
