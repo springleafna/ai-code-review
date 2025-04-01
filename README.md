@@ -33,7 +33,7 @@ jobs:
         run: mkdir -p ./libs
 
       - name: Download openai-code-review-sdk JAR
-        run: wget -O ./libs/ai-code-review-sdk-2.0.jar https://github.com/springleafna/ai-code-review/releases/download/v2.0/ai-code-review-sdk-2.0.jar
+        run: wget -O ./libs/ai-code-review-sdk-2.1.jar https://github.com/springleafna/ai-code-review/releases/download/v2.1/ai-code-review-sdk-2.1.jar
 
       - name: Get repository name
         id: repo-name
@@ -59,7 +59,7 @@ jobs:
           echo "Commit message is ${{ env.COMMIT_MESSAGE }}"      
 
       - name: Run Code Review
-        run: java -jar ./libs/ai-code-review-sdk-2.0.jar
+        run: java -jar ./libs/ai-code-review-sdk-2.1.jar
         env:
           # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xfg-studio-project/openai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
           GITHUB_REVIEW_LOG_URI: ${{ secrets.CODE_REVIEW_LOG_URI }}
@@ -71,10 +71,10 @@ jobs:
           # 飞书Webhook地址
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           # Ai api配置
-          deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}
-          deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}
-          glm-4: ${{ secrets.CHATGLM_APIKEY }}
-          glm-4v: ${{ secrets.CHATGLM_APIKEY }}
+          DEEPSEEK_CHAT: ${{ secrets.DEEPSEEK_APIKEY }}
+          DEEPSEEK_REASONER: ${{ secrets.DEEPSEEK_APIKEY }}
+          GLM_4: ${{ secrets.CHATGLM_APIKEY }}
+          GLM_4v: ${{ secrets.CHATGLM_APIKEY }}
 ```
 2. 在GitHub项目工程仓库里添加GitHub Secrets，并配置相关的密钥:  
 - CODE_REVIEW_LOG_URI: 代码审查日志存储仓库地址，如：https://github.com/xxx/ai-code-review-log
@@ -86,13 +86,13 @@ jobs:
   - deepseek-reasoner：DeepSeek-R1模型
   - glm-4：GLM-4 聊天模型
   - glm-4v：GLM-4v 聊天模型  
-
+  
     在yml文件中，配置对应的密钥，如：  
-        deepseek-chat: ${{ secrets.DEEPSEEK_APIKEY }}  
-        deepseek-reasoner: ${{ secrets.DEEPSEEK_APIKEY }}  
-        glm-4: ${{ secrets.CHATGLM_APIKEY }}  
-        glm-4v: ${{ secrets.CHATGLM_APIKEY }}  
-    若配置多个Ai模型，默认按照上述顺序进行调用。  
+    DEEPSEEK_CHAT: ${{ secrets.DEEPSEEK_APIKEY }}  
+    DEEPSEEK_REASONER: ${{ secrets.DEEPSEEK_APIKEY }}  
+    GLM_4: ${{ secrets.CHATGLM_APIKEY }}  
+    GLM_4v: ${{ secrets.CHATGLM_APIKEY }}  
+    若配置多个Ai模型，默认按照上述顺序进行调用。    
 3. 关闭代码评审功能：  
 添加 -close 即可
  ```yml

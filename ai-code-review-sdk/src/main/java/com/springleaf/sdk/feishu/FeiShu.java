@@ -1,7 +1,6 @@
 package com.springleaf.sdk.feishu;
 
 import com.alibaba.fastjson2.JSON;
-import com.springleaf.sdk.domain.dto.FeiShuTemplateMessageDTO;
 import com.springleaf.sdk.domain.entity.FeishuCodeReviewCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +38,6 @@ public class FeiShu {
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setDoOutput(true);
 
-        /*FeiShuTemplateMessageDTO message = new FeiShuTemplateMessageDTO(
-                "text",
-                new FeiShuTemplateMessageDTO.Content(
-                        "代码评审完成，地址为：" + logUrl
-                ));*/
         FeishuCodeReviewCard message = new FeishuCodeReviewCard(project, author, commitMessage, logUrl);
 
         try (OutputStream os = conn.getOutputStream()) {
