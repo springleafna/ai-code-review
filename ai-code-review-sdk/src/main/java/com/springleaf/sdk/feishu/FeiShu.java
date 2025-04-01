@@ -29,6 +29,8 @@ public class FeiShu {
     }
 
     public void sendTemplateMessage(String project, String author, String logUrl) throws IOException {
+        Objects.requireNonNull(project, "Project name cannot be null");
+        Objects.requireNonNull(author, "Author cannot be null");
         Objects.requireNonNull(logUrl, "Log URL cannot be null");
 
         URL url = new URL(webhook);

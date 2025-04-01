@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AiCodeReview {
@@ -61,7 +62,7 @@ public class AiCodeReview {
         String apiKey = null;
 
         for (AiModelEnum model : MODEL_PRIORITY) {
-            apiKey = System.getenv(model.getCode());
+            apiKey = System.getenv(model.getCode().toUpperCase(Locale.ROOT).replace('-', '_'));
             if (apiKey != null && !apiKey.isEmpty()) {
                 selectedModel = model;
                 break;
