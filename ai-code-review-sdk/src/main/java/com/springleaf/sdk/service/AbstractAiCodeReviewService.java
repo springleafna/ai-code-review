@@ -30,10 +30,10 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
             String diffCode = getDiffCode();
             // 2.调用AI模型进行代码评审：获取评审结果
             String recommend = codeReview(diffCode);
-            // 3.记录评审结果到github仓库：返回github日志地址
-            String logUrl = recordCodeReview(recommend);
-            // 4.发送消息通知到微信公众号：日志地址、评审结果
-            pushMessage(logUrl);
+            // 3.记录评审结果到github仓库
+            recordCodeReview(recommend);
+            // 4.发送消息通知到飞书：日志地址、评审结果
+            pushMessage();
         } catch (Exception e) {
             logger.error("ai code review error", e);
         }
@@ -43,7 +43,7 @@ public abstract class AbstractAiCodeReviewService implements AiCodeReviewService
 
     protected abstract String codeReview(String diffCode) throws Exception;
 
-    protected abstract String recordCodeReview(String recommend) throws Exception;
+    protected abstract void recordCodeReview(String recommend) throws Exception;
 
-    protected abstract void pushMessage(String logUrl) throws IOException;
+    protected abstract void pushMessage() throws IOException;
 }

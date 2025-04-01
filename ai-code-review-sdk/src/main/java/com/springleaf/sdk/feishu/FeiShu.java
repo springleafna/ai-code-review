@@ -2,6 +2,7 @@ package com.springleaf.sdk.feishu;
 
 import com.alibaba.fastjson2.JSON;
 import com.springleaf.sdk.domain.dto.FeiShuTemplateMessageDTO;
+import com.springleaf.sdk.domain.entity.FeishuCodeReviewCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class FeiShu {
         this.webhook = webhook;
     }
 
-    public void sendTemplateMessage(String logUrl) throws IOException {
+    public void sendTemplateMessage(String project, String author, String logUrl) throws IOException {
         Objects.requireNonNull(logUrl, "Log URL cannot be null");
 
         URL url = new URL(webhook);
@@ -36,11 +37,12 @@ public class FeiShu {
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setDoOutput(true);
 
-        FeiShuTemplateMessageDTO message = new FeiShuTemplateMessageDTO(
+        /*FeiShuTemplateMessageDTO message = new FeiShuTemplateMessageDTO(
                 "text",
                 new FeiShuTemplateMessageDTO.Content(
                         "代码评审完成，地址为：" + logUrl
-                ));
+                ));*/
+        FeishuCodeReviewCard message = new FeishuCodeReviewCard(project, author, logUrl);
 
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = JSON.toJSONString(message).getBytes(StandardCharsets.UTF_8);
@@ -56,9 +58,5 @@ public class FeiShu {
             String response = scanner.useDelimiter("\\A").next();
             logger.info("FeiShu message sent successfully. Response: {}", response);
         }
-    }
-
-    public String getWebhook() {
-        return webhook;
     }
 }

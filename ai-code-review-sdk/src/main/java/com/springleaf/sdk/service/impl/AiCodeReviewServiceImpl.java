@@ -69,12 +69,12 @@ public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
     }
 
     @Override
-    protected String recordCodeReview(String recommend) throws Exception {
-        return gitCommand.commitAndPush(recommend);
+    protected void recordCodeReview(String recommend) throws Exception {
+        gitCommand.commitAndPush(recommend);
     }
 
     @Override
-    protected void pushMessage(String logUrl) throws IOException {
-        feiShu.sendTemplateMessage(logUrl);
+    protected void pushMessage() throws IOException {
+        feiShu.sendTemplateMessage(gitCommand.getProject(), gitCommand.getAuthor(), gitCommand.getGithubReviewLogUri());
     }
 }

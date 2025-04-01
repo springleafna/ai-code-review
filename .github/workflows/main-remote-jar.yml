@@ -4,10 +4,10 @@ name: Build and Run AiCodeReview By Main Maven Jar
 on:
   push:
     branches:
-      - master
+      - master-close
   pull_request:
     branches:
-      - master
+      - master-close
 
 jobs:
   build:

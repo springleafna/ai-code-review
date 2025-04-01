@@ -57,20 +57,28 @@ public class GitCommand {
         this.message = message;
     }
 
+    public String getGithubReviewLogUri() {
+        return this.githubReviewLogUri;
+    }
+
+    public String getGithubToken() {
+        return this.githubToken;
+    }
+
     public String getProject() {
-        return project;
+        return this.project;
     }
 
     public String getBranch() {
-        return branch;
+        return this.branch;
     }
 
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     /**
