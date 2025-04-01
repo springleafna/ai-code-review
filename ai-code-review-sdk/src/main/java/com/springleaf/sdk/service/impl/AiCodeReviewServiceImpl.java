@@ -75,6 +75,6 @@ public class AiCodeReviewServiceImpl extends AbstractAiCodeReviewService {
 
     @Override
     protected void pushMessage() throws IOException {
-        feiShu.sendTemplateMessage(gitCommand.getProject(), gitCommand.getAuthor(), gitCommand.getGithubReviewLogUri());
+        feiShu.sendTemplateMessage(gitCommand.getProject(), gitCommand.getAuthor(), gitCommand.getMessage(), gitCommand.getGithubReviewLogUri());
     }
 }

@@ -28,7 +28,7 @@ public class FeiShu {
         this.webhook = webhook;
     }
 
-    public void sendTemplateMessage(String project, String author, String logUrl) throws IOException {
+    public void sendTemplateMessage(String project, String author, String commitMessage, String logUrl) throws IOException {
         Objects.requireNonNull(project, "Project name cannot be null");
         Objects.requireNonNull(author, "Author cannot be null");
         Objects.requireNonNull(logUrl, "Log URL cannot be null");
@@ -44,7 +44,7 @@ public class FeiShu {
                 new FeiShuTemplateMessageDTO.Content(
                         "代码评审完成，地址为：" + logUrl
                 ));*/
-        FeishuCodeReviewCard message = new FeishuCodeReviewCard(project, author, logUrl);
+        FeishuCodeReviewCard message = new FeishuCodeReviewCard(project, author, commitMessage, logUrl);
 
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = JSON.toJSONString(message).getBytes(StandardCharsets.UTF_8);

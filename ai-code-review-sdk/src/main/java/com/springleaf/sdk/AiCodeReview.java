@@ -39,14 +39,6 @@ public class AiCodeReview {
         logger.info("Code review completed successfully!");
     }
 
-    private static String getEnv(String key) {
-        String value = System.getenv(key);
-        if (null == value || value.isEmpty()) {
-            throw new RuntimeException( key + ": value is null");
-        }
-        return value;
-    }
-
     // 读取配置文件获取对应的Ai模型
     private static AiModel getAiModel() {
         // 1. 定义模型检查优先级顺序
@@ -62,7 +54,7 @@ public class AiCodeReview {
         String apiKey = null;
 
         for (AiModelEnum model : MODEL_PRIORITY) {
-            apiKey = System.getenv(model.getCode().toUpperCase(Locale.ROOT).replace('-', '_'));
+            apiKey = System.getenv(normalizeEnvVarName(model.getCode()));
             if (apiKey != null && !apiKey.isEmpty()) {
                 selectedModel = model;
                 break;
@@ -77,5 +69,20 @@ public class AiCodeReview {
 
         // 4. 通过工厂方法创建模型实例
         return selectedModel.createInstanceModel(apiKey);
+    }
+
+    private static String getEnv(String key) {
+        String value = System.getenv(key);
+        if (null == value || value.isEmpty()) {
+            throw new RuntimeException( key + ": value is null");
+        }
+        return value;
+    }
+
+    /**
+     * 将枚举类中的code转换为与环境变量对应的名称（小写转大写，-转_）
+     */
+    private static String normalizeEnvVarName(String name) {
+        return name.toUpperCase(Locale.ROOT).replace('-', '_');
     }
 }

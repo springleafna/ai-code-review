@@ -134,7 +134,7 @@ public class ApiTest {
     @Test
     public void testFeishu() throws IOException {
         FeiShu feiShu = new FeiShu("https://open.feishu.cn/open-apis/bot/v2/hook/d28b081e-7a18-4b22-9d0c-1ea8f715fbbb");
-        feiShu.sendTemplateMessage("project", "author", "https://www.baidu.com");
+        feiShu.sendTemplateMessage("project", "author", "message", "https://www.baidu.com");
     }
 
     /**

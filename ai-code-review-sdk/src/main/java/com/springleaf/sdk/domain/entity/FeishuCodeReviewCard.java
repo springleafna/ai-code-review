@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 飞书卡片通知实体类
+ */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FeishuCodeReviewCard {
@@ -17,8 +20,8 @@ public class FeishuCodeReviewCard {
 
     private final Card card;
 
-    public FeishuCodeReviewCard(String projectName, String author, String repoUrl) {
-        this.card = new Card(projectName, author, repoUrl);
+    public FeishuCodeReviewCard(String projectName, String author, String message, String repoUrl) {
+        this.card = new Card(projectName, author, message, repoUrl);
     }
 
     @Data
@@ -28,8 +31,8 @@ public class FeishuCodeReviewCard {
         private final Header header = new Header();
         private final Body body;
 
-        public Card(String projectName, String author, String repoUrl) {
-            this.body = new Body(projectName, author, repoUrl);
+        public Card(String projectName, String author, String message,  String repoUrl) {
+            this.body = new Body(projectName, author, message, repoUrl);
         }
     }
 
@@ -79,19 +82,22 @@ public class FeishuCodeReviewCard {
         private final String padding = "12px 12px 12px 12px";
         private final List<Element> elements;
 
-        public Body(String projectName, String author, String repoUrl) {
+        public Body(String projectName, String author, String message, String repoUrl) {
             this.elements = Arrays.asList(
-                    createMarkdownElement(projectName, author, repoUrl),
+                    createMarkdownElement(projectName, author, message, repoUrl),
                     createButtonElement(repoUrl)
             );
         }
 
-        private Element createMarkdownElement(String projectName, String author, String repoUrl) {
+        private Element createMarkdownElement(String projectName, String author, String message, String repoUrl) {
             Element element = new Element();
             element.setTag("markdown");
             element.setContent(String.format(
-                    "**项目名称**: %s\n\n**作者**: %s\n\n**仓库地址**: [%s](%s)",
-                    projectName, author, repoUrl, repoUrl
+                    "**项目名称**: %s\n\n" +
+                    "**作者**: %s\n\n" +
+                    "**提交信息**: %s\n\n" +  // 新增行
+                    "**仓库地址**: [%s](%s)",  // 调整格式
+                    projectName, author, message, repoUrl, repoUrl
             ));
             element.setTextAlign("left");
             element.setTextSize("normal_v2");
