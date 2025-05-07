@@ -61,7 +61,7 @@ jobs:
       - name: Run Code Review
         run: java -jar ./libs/ai-code-review-sdk-2.1.jar
         env:
-          # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xfg-studio-project/openai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
+          # GitHub 配置；GITHUB_REVIEW_LOG_URI「https://github.com/xxx/ai-code-review-log」、GITHUB_TOKEN「https://github.com/settings/tokens」
           GITHUB_REVIEW_LOG_URI: ${{ secrets.CODE_REVIEW_LOG_URI }}
           GITHUB_TOKEN: ${{ secrets.CODE_TOKEN }}
           COMMIT_PROJECT: ${{ env.REPO_NAME }}
