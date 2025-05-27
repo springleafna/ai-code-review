@@ -105,6 +105,10 @@ on:
       - master-close
 ```
 
+在 GitHub 上，Personal Access Tokens (PAT) 是用于访问 GitHub API 和执行 Git 操作的令牌。  
+Fine-grained tokens（细粒度令牌）  
+Tokens (classic)（经典令牌）
+
 ## ProcessBuilder
 是 Java 中用于启动和管理外部进程的类。
 ProcessBuilder类是J2SE 1.5在java.lang中新添加的一个新类，此类用于创建操作系统进程，它提供一种启动和管理进程（也就是应用程序）的方法。  
