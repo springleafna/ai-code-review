@@ -78,7 +78,7 @@ jobs:
 ```
 2. 在GitHub项目工程仓库里添加GitHub Secrets，并配置相关的密钥:  
 - CODE_REVIEW_LOG_URI: 代码审查日志存储仓库地址，如：https://github.com/xxx/ai-code-review-log
-- CODE_TOKEN: GitHub Token，用于鉴权
+- CODE_TOKEN: GitHub Token，用于鉴权，注意过期时间
 - FEISHU_WEBHOOK: 飞书机器人 Webhook，用于飞书机器人消息推送。
 - 对于Ai模型的配置：  
 现支持以下模型：
