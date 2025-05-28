@@ -3,7 +3,6 @@ package com.springleaf.sdk.service.impl;
 import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.domain.dto.ChatCompletionRequestDTO;
 import com.springleaf.sdk.domain.dto.ChatCompletionSyncResponseDTO;
-import com.springleaf.sdk.enumeration.AiModelEnum;
 import com.springleaf.sdk.feishu.FeiShu;
 import com.springleaf.sdk.git.GitCommand;
 import com.springleaf.sdk.service.AbstractAiCodeReviewService;

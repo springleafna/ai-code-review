@@ -1,6 +1,7 @@
 package com.springleaf.sdk.git;
 
 import com.springleaf.sdk.utils.RandomStringUtil;
+import lombok.Getter;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.util.Date;
  * Git 命令封装类
  * 获取git diff结果、提交代码审查建议并推送到GitHub仓库
  */
+@Getter
 public class GitCommand {
 
     private final Logger logger = LoggerFactory.getLogger(GitCommand.class);
@@ -55,30 +57,6 @@ public class GitCommand {
         this.branch = branch;
         this.author = author;
         this.message = message;
-    }
-
-    public String getGithubReviewLogUri() {
-        return this.githubReviewLogUri;
-    }
-
-    public String getGithubToken() {
-        return this.githubToken;
-    }
-
-    public String getProject() {
-        return this.project;
-    }
-
-    public String getBranch() {
-        return this.branch;
-    }
-
-    public String getAuthor() {
-        return this.author;
-    }
-
-    public String getMessage() {
-        return this.message;
     }
 
     /**

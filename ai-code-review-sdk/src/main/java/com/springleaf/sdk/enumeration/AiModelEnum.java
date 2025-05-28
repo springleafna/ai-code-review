@@ -3,12 +3,14 @@ package com.springleaf.sdk.enumeration;
 import com.springleaf.sdk.ai.AiModel;
 import com.springleaf.sdk.ai.impl.ChatGML;
 import com.springleaf.sdk.ai.impl.DeepSeek;
+import lombok.Getter;
 
 /**
  * Ai模型枚举类
  * 每个枚举常量都是枚举类的一个实例，而枚举类本身是一个继承自 java.lang.Enum 的类。
  * 当枚举类包含抽象方法时，这些匿名子类必须实现所有抽象方法，否则无法实例化。
  */
+@Getter
 public enum AiModelEnum {
 
     DEEPSEEK_CHAT("deepseek-chat", "DeepSeek-V3模型", "https://api.deepseek.com/chat/completions") {
@@ -46,18 +48,6 @@ public enum AiModelEnum {
         this.code = code;
         this.info = info;
         this.apiURL = apiURL;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public String getInfo() {
-        return this.info;
-    }
-
-    public String getApiURL() {
-        return apiURL;
     }
 
     public abstract AiModel createInstanceModel(String apiKey);
